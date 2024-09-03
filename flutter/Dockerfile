@@ -1,11 +1,6 @@
 # Flutter (https://flutter.io) Developement Environment for Linux
 # ===============================================================
 #
-# This environment passes all Linux Flutter Doctor checks and is sufficient
-# for building Android applications and running Flutter tests.
-#
-# To build iOS applications, a Mac development environment is necessary.
-#
 
 FROM debian:bookworm
 MAINTAINER Chinmay Garde <chinmaygarde@google.com>
@@ -18,23 +13,7 @@ RUN apt install -y \
   curl \
   unzip \
   lib32stdc++6 \
-  libglu1-mesa \
-  default-jdk-headless
-
-# Install the Android SDK Dependency.
-ENV ANDROID_SDK_URL="https://dl.google.com/android/repository/commandlinetools-linux-7302050_latest.zip"
-ENV ANDROID_TOOLS_ROOT="/opt/android_sdk"
-RUN mkdir -p "${ANDROID_TOOLS_ROOT}/cmdline-tools"
-ENV ANDROID_SDK_ARCHIVE="${ANDROID_TOOLS_ROOT}/archive"
-RUN wget -q "${ANDROID_SDK_URL}" -O "${ANDROID_SDK_ARCHIVE}"
-RUN unzip -q -d "${ANDROID_TOOLS_ROOT}/cmdline-tools" "${ANDROID_SDK_ARCHIVE}"
-RUN mv "${ANDROID_TOOLS_ROOT}/cmdline-tools/cmdline-tools" "${ANDROID_TOOLS_ROOT}/cmdline-tools/latest"
-RUN yes "y" | "${ANDROID_TOOLS_ROOT}/cmdline-tools/latest/bin/sdkmanager" "build-tools;28.0.0"
-RUN yes "y" | "${ANDROID_TOOLS_ROOT}/cmdline-tools/latest/bin/sdkmanager" "platforms;android-28"
-RUN yes "y" | "${ANDROID_TOOLS_ROOT}/cmdline-tools/latest/bin/sdkmanager" "platform-tools"
-RUN rm "${ANDROID_SDK_ARCHIVE}"
-ENV PATH="${ANDROID_TOOLS_ROOT}/cmdline-tools/latest:${PATH}"
-ENV PATH="${ANDROID_TOOLS_ROOT}/cmdline-tools/latest/bin:${PATH}"
+  libglu1-mesa
 
 # Install Flutter.
 ENV FLUTTER_ROOT="/opt/flutter"
